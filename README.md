@@ -1,2 +1,2 @@
 # lawyer_business
-Aplicação para contatar empresas e advogados.
+Aplicação para lançamentos de ordens de serviços

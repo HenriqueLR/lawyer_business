@@ -1,0 +1,26 @@
+# .coveragerc to control coverage.py
+
+[coverage:run]
+branch = True
+omit =
+    */.local/*
+    /usr/*
+
+[coverage:report]
+exclude_lines =
+    pragma: no cover
+
+    def __repr__
+    if self\.debug
+
+    raise AssertionError
+    raise NotImplementedError
+
+    if 0:
+    if __name__ == .__main__.:
+omit =
+    */.tox/*
+ignore_errors = True
+
+[coverage:html]
+directory = htmlcov
