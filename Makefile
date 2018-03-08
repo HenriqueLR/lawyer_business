@@ -7,20 +7,19 @@ install: permissions
 	./setup.sh ;\
 
 runserver_prodution:
-	./env/runserver.sh
+	./env/docker/runserver.sh
 
 runserver_local:
-	python3.6 app/manage.py runserver 0.0.0.0:8001 --settings=conf.settings
+	./app/manage.py runserver 0.0.0.0:8001 --settings=conf.settings
 
 connect_container:
-	./env/connect-container.sh
+	./env/docker/connect-container.sh
 
 collectstatic:
-	python3.6 app/manage.py collectstatic
+	./app/manage.py collectstatic
 
 migrate:
-	python3.6 app/manage.py makemigrations,migrate --settings=conf.settings ;\
-	python3.6 app/manage.py makemigrations,migrate --settings=conf.settings_production ;\
+	./app/manage.py makemigrations,migrate --settings=conf.settings ;\
 
 remove_migrations:
 	find . -path "*/migrations/*.py" -not -name "__init__.py" -delete

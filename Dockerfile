@@ -15,6 +15,6 @@ RUN mkdir -p /deploy/apps/lawyer_business/
 ADD . /deploy/apps/lawyer_business/
 
 WORKDIR /deploy/apps/lawyer_business
-RUN ./env/install.sh
+RUN ./env/docker/install.sh
 
 USER lawyer_business
