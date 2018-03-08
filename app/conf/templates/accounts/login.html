@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load formtags %}
+
+{% block search_form_navbar %}{% endblock %}
+{% block navbar %}{% endblock %}
+{% block sidebar %}{% endblock %}
+{% block breadcrumb %}{% endblock %}
+{% block bd %}{% endblock %}
+
+{% block content %}
+<div class="row">
+<div class="col-sm-10 col-sm-offset-1">
+<div class="login-container">
+<div class="space-12"></div>
+<div class="center">
+<h4 class="blue" id="id-company-text">© Fire Tintas</h4>
+</div>
+
+<div class="position-relative">
+<div id="login-box" class="login-box visible widget-box no-border">
+<div class="widget-body">
+<div class="widget-main">
+{% include 'messages.html' %}
+<div class="space-6"></div>
+<form method='post' id="login-form">
+{% csrf_token %}
+
+<fieldset>
+<label class="block clearfix">
+<span class="block input-icon input-icon-right">
+{{ form.username|placeholder:"Usuario" |addcss:"form-control" }}
+<span class="help-block text-danger">{{ form.username.errors|join:"<br />" }}</span>                                                            <i class="ace-icon fa fa-user"></i>
+</span>
+</label>
+
+<label class="block clearfix">
+<span class="block input-icon input-icon-right">
+{{ form.password|placeholder:"Senha" |addcss:"form-control" }}
+<span class="help-block text-danger">{{ form.password.errors|join:"<br />" }}</span>
+<i class="ace-icon fa fa-lock"></i>
+</span>
+</label>
+
+<div class="space"></div>
+
+<div class="center">
+
+<button type="submit" class="width-35 btn btn-sm btn-primary">
+<i class="ace-icon fa fa-key"></i>
+<span class="bigger-110">Login</span>
+</button>
+<a href="{% url 'accounts:create_account' %}" class="width-35 btn btn-sm btn-success">
+<i class="ace-icon fa fa-pencil"></i>
+<span class="bigger-110">Cadastrar</span>
+</a>
+</div>
+
+<div class="space-4"></div>
+</fieldset>
+</form>
+
+<div class="space-6"></div>
+
+</div><!-- /.widget-main -->
+
+</div><!-- /.widget-body -->
+</div><!-- /.login-box -->
+
+</div><!-- /.position-relative -->
+
+</div>
+</div><!-- /.col -->
+</div>
+{% endblock %}

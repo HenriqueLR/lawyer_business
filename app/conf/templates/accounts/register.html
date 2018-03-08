@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load formtags %}
+
+{% block search_form_navbar %}{% endblock %}
+{% block navbar %}{% endblock %}
+{% block sidebar %}{% endblock %}
+{% block breadcrumb %}{% endblock %}
+{% block bd %}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+                    <form action="." method="POST">
+                        {% csrf_token %}
+                    <div class="widget-header widget-header-flat border-none">
+                        <h4 class="widget-title lighter">
+                            <i class="ace-icon fa fa-star orange"></i>
+                            Novo Cadastro
+                        </h4>
+
+                        <div class="widget-toolbar">
+                            <a href="{% url 'accounts:login' %}">
+                                <i class="fa fa-times"></i>
+                                Cancelar
+                            </a>
+                        </div>
+
+                    </div>
+<div class="space-12"></div>
+                                    <div class="col-xs-6 col-sm-3 col-sm-offset-3 pricing-box">
+                                        <div class="widget-box widget-color-orange">
+                                            <div class="widget-header">
+                                                <h5 class="widget-title bigger lighter">Advogados</h5>
+                                            </div>
+
+                                            <div class="widget-body">
+                                                <div class="widget-main">
+                                                    <ul class="list-unstyled spaced2">
+                                                        <li>
+                                                            <i class="ace-icon fa fa-check green"></i>
+                                                            Checar ordens de serviços em aberto
+                                                        </li>
+
+                                                        <li>
+                                                            <i class="ace-icon fa fa-check green"></i>
+                                                            Concorrer a uma ordem de serviço
+                                                        </li>
+
+                                                        <li>
+                                                            <i class="ace-icon fa fa-check green"></i>
+                                                            Free Plan
+                                                        </li>
+                                                    </ul>
+
+                                                    <hr>
+                                                    <div class="price">
+                                                        R$ 0,00
+                                                        <small></small>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <a href="{% url 'lawyer:add_lawyer' %}" class="btn btn-block btn-warning">
+                                                        <i class="ace-icon fa fa-shopping-cart bigger-110"></i>
+                                                        <span>cadastrar</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-3 pricing-box">
+                                        <div class="widget-box widget-color-blue">
+                                            <div class="widget-header">
+                                                <h5 class="widget-title bigger lighter">Empresas</h5>
+                                            </div>
+
+                                            <div class="widget-body">
+                                                <div class="widget-main">
+                                                    <ul class="list-unstyled spaced2">
+                                                        <li>
+                                                            <i class="ace-icon fa fa-check green"></i>
+                                                            Criar ordens de serviços
+                                                        </li>
+
+                                                        <li>
+                                                            <i class="ace-icon fa fa-check green"></i>
+                                                            Gerenciar concorrencias
+                                                        </li>
+
+                                                        <li>
+                                                            <i class="ace-icon fa fa-check green"></i>
+                                                            Free plano
+                                                        </li>
+                                                    </ul>
+
+                                                    <hr>
+                                                    <div class="price">
+                                                        R$ 0,00
+                                                        <small></small>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <a href="{% url 'business:add_business' %}" class="btn btn-block btn-primary">
+                                                        <i class="ace-icon fa fa-shopping-cart bigger-110"></i>
+                                                        <span>cadastrar</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+{% endblock %}

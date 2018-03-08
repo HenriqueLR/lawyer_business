@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^', include('main.urls', namespace='main')),
     url(r'^advogados/', include('lawyer.urls', namespace='lawyer')),
     url(r'^empresas/', include('business.urls', namespace='business')),
+    url(r'^contas/', include('accounts.urls', namespace='accounts')),
 ]

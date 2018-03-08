@@ -23,7 +23,7 @@ def add_business(request):
         user = user_form.save()
         business = business_form.save(user=user)
         messages.success(request, 'Empresa criada com sucesso')
-        return HttpResponseRedirect(reverse_lazy('main:home'))
+        return HttpResponseRedirect(reverse_lazy('accounts:login'))
 
     context = {
         'user_form':user_form,

@@ -24,8 +24,8 @@ def add_lawyer(request):
     if user_form.is_valid() and lawyer_form.is_valid():
         user = user_form.save()
         lawyer = lawyer_form.save(user=user)
-        messages.success(request, 'Empresa criada com sucesso')
-        return HttpResponseRedirect(reverse_lazy('main:home'))
+        messages.success(request, 'Advogado criado com sucesso')
+        return HttpResponseRedirect(reverse_lazy('accounts:login'))
 
     context = {
         'user_form':user_form,
