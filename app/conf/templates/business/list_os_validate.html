@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+{% load formtags %}
+
+{% block sidebar %}{% endblock %}
+{% block breadcrumb %}{% endblock %}
+
+{% block search_form_navbar %}
+    <div class="nav-search" id="nav-search">
+        <form class="form-search" id="id-form-search" method='get' action='.'>
+            <span class="input-icon">
+                <input value="{% if request.GET.range_dt %}{{ request.GET.range_dt }}{% endif %}" type="text" class="calendar-input" id="dt-range" name="range_dt" />
+                <i class="ace-icon fa fa-calendar blue"></i>
+            </span>
+            <select id="id_status" name="status">
+                {% for obj in status_list %}
+                    {% if request.GET.status == obj.name %}
+                        <option  selected="selected" name='{{ obj.name }}' id='{{ obj.pk }}'>{{ obj.name }}</option>
+                    {% else %}
+                        <option name='{{ obj.name }}' id='{{ obj.pk }}'>{{ obj.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </form>
+    </div><!-- /.nav-search -->
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget-box transparent">
+
+                <div class="widget-header widget-header-flat">
+                <h4 class="widget-title lighter">
+                    <i class="ace-icon fa fa-star orange"></i>
+                    <a href="{% url 'business:list_os_validate' %}">Ordens de Serviço</a>
+                </h4>
+
+                <div class="widget-toolbar">
+                   <a href="{% url 'main:list_os' %}">
+                        <i class="ace-icon fa fa-pencil-square-o"></i>
+                        listar OS
+                    </a>
+                </div>
+
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main no-padding">
+                        {% include "messages.html" %}
+                        <table class="table table-bordered table-striped">
+                            <thead class="thin-border-bottom">
+                                <tr>
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        <i class="ace-icon fa fa-caret-right blue"></i>Empresa
+                                    </th>
+
+                                    <th>
+                                        <i class="ace-icon fa fa-caret-right blue"></i>Titulo OS
+                                    </th>
+
+                                    <th>
+                                        <i class="ace-icon fa fa-caret-right blue"></i>Descrição OS
+                                    </th>
+                                    <th>
+                                        <i class="ace-icon fa fa-caret-right blue"></i>Data OS
+                                    </th>
+                                    <th>
+                                        <i class="ace-icon fa fa-caret-right blue"></i>Preço
+                                    </th>
+                                    <th>
+                                        <i class="ace-icon fa fa-caret-right blue"></i>Descrição Serviço
+                                    </th>
+                                    <th>
+                                        <i class="ace-icon fa fa-caret-right blue"></i>Advogado
+                                    </th>
+                                    <th>
+                                        <i class="ace-icon fa fa-caret-right blue"></i>Data Assinatura
+                                    </th>
+                                    <th>
+                                        <i class="ace-icon fa fa-caret-right blue"></i>Status
+                                    </th>
+                                    <th>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for list in object_list %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ list.order_service.business.name }}</td>
+                                        <td>{{ list.order_service.title }}</td>
+                                        <td>{{ list.order_service.description }}</td>
+                                        <td>{{ list.order_service.created_at|date:"d/m/Y h:m:s" }}</td>
+                                        <td>R$ {{ list.price | real_br_money_mask }}</td>
+                                        <td>{{ list.description }}</td>
+                                        <td>{{ list.lawyer }}</td>
+                                        <td>{{ list.created_at|date:"d/m/Y h:m:s" }}</td>
+                                        <td>
+                                            <span class="label {% if list.status.name == 'criada' %}label-info{% elif list.status.name == 'finalizado' %}label-success{% elif list.status.name == 'delegada' %}label-warning{% endif %} arrowed-right arrowed-in">{{ list.status.name }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="hidden-sm hidden-xs btn-group">
+                                                <a href="{% url 'business:update_status_os' key='delegada' pk=list.pk %}" class="btn btn-xs btn-success">
+                                                    delegar
+                                                </a>
+                                            </div>
+
+                                            <div class="hidden-sm hidden-xs btn-group">
+                                                <a href="{% url 'business:update_status_os' key='finalizada' pk=list.pk %}" class="btn btn-xs btn-info">
+                                                    finalizar
+                                                </a>
+                                            </div>
+
+                                            <div class="hidden-md hidden-lg">
+                                                <div class="inline pos-rel">
+                                                    <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+                                                        <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                    </button>
+
+                                                    <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+
+                                                        <li>
+                                                            <a href="{% url 'business:update_status_os' key='delegada' pk=list.pk %}" class="tooltip-error" data-rel="tooltip" title="" data-original-title="Delete">
+                                                                <span class="green">
+                                                                    delegar
+                                                                </span>
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a href="{% url 'business:update_status_os' key='finalizada' pk=list.pk %}" class="tooltip-error" data-rel="tooltip" title="" data-original-title="Delete">
+                                                                <span class="blue">
+                                                                    finalizar
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div><!-- /.widget-main -->
+                    {% if object_list %}
+                        <ul class="pagination" id='setpage'>
+                            {% if page_obj.has_previous %}
+                                <li><a href="?page={{ page_obj.previous_page_number }}{% if request.GET.range_dt %}&range_dt={{ request.GET.range_dt }}{% endif %}{% if request.GET.tipo %}&tipo={{ request.GET.tipo }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">&laquo;</a></li>
+                            {% else %}
+                                <li class="disabled"><a class='disabled'>&laquo;</a></li>
+                            {% endif %}
+
+                            {% for num in page_obj.paginator.page_range %}
+                                {% ifequal num page_obj.number %}
+                                    <li class="active"><a class='disabled'>{{ num }}<span class="sr-only">(current)</span></a></li>
+                                {% else %}
+                                    <li><a href="?page={{ num }}{% if request.GET.range_dt %}&range_dt={{ request.GET.range_dt }}{% endif %}{% if request.GET.tipo %}&tipo={{ request.GET.tipo }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">{{ num }}</a></li>
+                                {% endifequal %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <li><a href="?page={{ page_obj.next_page_number }}{% if request.GET.range_dt %}&range_dt={{ request.GET.range_dt }}{% endif %}{% if request.GET.tipo %}&tipo={{ request.GET.tipo }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">&raquo;</a></li>
+                            {% else %}
+                                <li class="disabled"><a class='disabled'>&raquo;</a></li>
+                            {% endif %}
+                        <ul>
+                    {% endif %}
+                </div><!-- /.widget-body -->
+            </div><!-- /.widget-box -->
+        </div><!-- /.col -->
+
+    </div><!-- /.row -->
+{% endblock %}
+
+{% block extra_script_body %}
+    <script>
+                jQuery(function($) {
+
+                    $('#dt-range').daterangepicker({
+                        'applyClass' : 'btn-sm btn-success',
+                        'cancelClass' : 'btn-sm btn-default',
+                        locale: {
+                            applyLabel: 'Pesquisar',
+                            cancelLabel: 'Fechar',
+                            format: 'DD/MM/YYYY',
+                            customRangeLabel: "Personalizar",
+                            daysOfWeek: [
+                                "Dom",
+                                "Seg",
+                                "Ter",
+                                "Qua",
+                                "Qui",
+                                "Sex",
+                                "Sab"
+                            ],
+                            monthNames: [
+                                "Janeiro",
+                                "Fevereiro",
+                                "Março",
+                                "Abril",
+                                "Maio",
+                                "Junho",
+                                "Julho",
+                                "Agosto",
+                                "Setembro",
+                                "Outubro",
+                                "Novembro",
+                                "Dezembro"
+                            ],
+                        },
+                        ranges: {
+                           'Hoje': [moment(), moment()],
+                           'Ontem': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                           'Ultimos 7 dias': [moment().subtract(6, 'days'), moment()],
+                           'Ultimos 30 dias': [moment().subtract(29, 'days'), moment()],
+                           'Este mês': [moment().startOf('month'), moment().endOf('month')],
+                           'Ultimo mês': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                        }
+                    });
+
+                });
+
+        $('#id_status').change( function() {
+            $(this).find(":selected").each(function () {
+                $('#id-form-search').submit();
+            });
+        });
+
+        $('#dt-range').on('apply.daterangepicker', function(ev, picker) {
+            $('#id-form-search').submit();
+        });
+    </script>
+{% endblock %}

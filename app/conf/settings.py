@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'lawyer',
     'main',
     'business',
+    'accounts',
 ]
 
 MIDDLEWARE = [

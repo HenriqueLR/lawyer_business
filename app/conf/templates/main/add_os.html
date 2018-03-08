@@ -1,10 +1,7 @@
 {% extends 'base.html' %}
 {% load formtags %}
 
-{% block search_form_navbar %}{% endblock %}
-{% block navbar %}{% endblock %}
 {% block sidebar %}{% endblock %}
-{% block breadcrumb %}{% endblock %}
 {% block bd %}{% endblock %}
 
 {% block content %}
@@ -18,11 +15,11 @@
                     <div class="widget-header widget-header-flat border-none">
                         <h4 class="widget-title lighter">
                             <i class="ace-icon fa fa-star orange"></i>
-                            Novo Advogado
+                            Nova Ordem de Serviço
                         </h4>
 
                         <div class="widget-toolbar">
-                            <a href="{% url 'main:home' %}">
+                            <a href="{% url 'main:list_os' %}">
                                 <i class="fa fa-times"></i>
                                 Cancelar
                             </a>
@@ -41,48 +38,37 @@
                         <div class="widget-main">
                             <div class="col-sm-6 col-sm-offset-2">
                                 <div>
-                                    <label for="id_name">Nome</label>
-                                    <div class='input-group {% if form.name.errors %}has-error{% endif %}'>
+                                    <label for="id_business">Empresa</label>
+                                    <div class='input-group {% if form.business.errors %}has-error{% endif %}'>
                                         <div class='input-group-addon'>
                                             <i class='ace-icon fa fa-credit-card'></i>
                                         </div>
-                                        {{ form.name|placeholder:"Nome Completo" | addcss:"form-control" }}
+                                        {{ form.business|placeholder:"Empresa" | addcss:"form-control" }}
                                     </div>
-                                    <span class="error text-danger">{{ form.name.errors|join:"<br \>" }}</span>
+                                    <span class="error text-danger">{{ form.business.errors|join:"<br \>" }}</span>
                                 </div>
                                 <div class="space-6"></div>
                                 <div>
-                                    <label for="id_phone">Telefone</label>
-                                    <div class='input-group {% if form.phone.errors %}has-error{% endif %}'>
+                                    <label for="id_title">Titulo</label>
+                                    <div class='input-group {% if form.title.errors %}has-error{% endif %}'>
                                         <div class='input-group-addon'>
                                             <i class='ace-icon fa fa-credit-card'></i>
                                         </div>
-                                        {{ form.phone|placeholder:"ex: (31)9XXXX-XXXX" |addcss:"form-control" }}
+                                        {{ form.title|placeholder:"Titulo da OS" |addcss:"form-control" }}
                                     </div>
-                                    <span class="error text-danger">{{ form.phone.errors|join:"<br \>" }}</span>
-                                </div>
-                                <div class="space-6"></div>
-                                <div>
-                                    <label for="id_email">Email</label>
-                                    <div class='input-group {% if form.email.errors %}has-error{% endif %}'>
-                                        <div class='input-group-addon'>
-                                            <i class='ace-icon fa fa-credit-card'></i>
-                                        </div>
-                                        {{ form.email|placeholder:"email@email.com" |addcss:"form-control" }}
-                                    </div>
-                                    <span class="error text-danger">{{ form.email.errors|join:"<br \>" }}</span>
+                                    <span class="error text-danger">{{ form.title.errors|join:"<br \>" }}</span>
                                 </div>
 
                                 <div class="space-6"></div>
                                 <div>
-                                    <label for="id_cpf">Cpf</label>
-                                    <div class='input-group {% if form.cpf.errors %}has-error{% endif %}'>
+                                    <label for="id_description">Descrição</label>
+                                    <div class='input-group {% if form.description.errors %}has-error{% endif %}'>
                                         <div class='input-group-addon'>
                                             <i class='ace-icon fa fa-credit-card'></i>
                                         </div>
-                                        {{ form.cpf|placeholder:"XXXXXXXXXXX" |addcss:"form-control" }}
+                                        {{ form.description|placeholder:"Descrição da OS" | textarea:"4" | addcss:"form-control" }}
                                     </div>
-                                    <span class="error text-danger">{{ form.cpf.errors|join:"<br \>" }}</span>
+                                    <span class="error text-danger">{{ form.description.errors|join:"<br \>" }}</span>
                                 </div>
                             </div>
 

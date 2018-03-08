@@ -19,7 +19,8 @@ collectstatic:
 	./app/manage.py collectstatic
 
 migrate:
-	./app/manage.py makemigrations,migrate --settings=conf.settings ;\
+	./app/manage.py makemigrations --settings=conf.settings ;\
+	./app/manage.py migrate --settings=conf.settings ;\
 
 remove_migrations:
 	find . -path "*/migrations/*.py" -not -name "__init__.py" -delete

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load formtags %}
+
+{% block sidebar %}{% endblock %}
+{% block breadcrumb %}{% endblock %}
+{% block bd %}{% endblock %}
+
+{% block content %}
+    <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <div class="widget-box transparent">
+                    <form action="{{ object.get_delete_os }}" method="post">
+                        {% csrf_token %}
+                    <div class="widget-header widget-header-flat border-none">
+                        <h4 class="widget-title lighter">
+                            <i class="ace-icon fa fa-star orange"></i>
+                            Apagar Ordem de Serviço
+                        </h4>
+
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="col-sm-6">
+
+                                <div>
+                                    <label for="">Deseja apagar a venda?</label>
+                                    <div class='input-group'>
+                                        <input type="submit" class='btn btn-danger' value="Sim"/>
+                                        <a class='btn btn-primary' href="{% url 'main:list_os' %}">Não</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    </form>
+                </div>
+            </div>
+
+    </div><!-- /.row -->
+
+{% endblock %}
+
+{% block extra_script_body %}
+{% endblock %}

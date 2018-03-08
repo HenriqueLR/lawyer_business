@@ -1,15 +1,12 @@
 {% extends 'base.html' %}
 {% load formtags %}
 
-{% block search_form_navbar %}{% endblock %}
-{% block navbar %}{% endblock %}
 {% block sidebar %}{% endblock %}
 {% block breadcrumb %}{% endblock %}
 {% block bd %}{% endblock %}
+{% block navbar %}{% endblock %}
 
 {% block content %}
-
-
     <div class="row">
             <div class="col-xs-12 col-sm-12">
                 <div class="widget-box transparent">
@@ -41,7 +38,7 @@
                         <div class="widget-main">
                             <div class="col-sm-6 col-sm-offset-2">
                                 <div>
-                                    <label for="id_namè">Nome</label>
+                                    <label for="id_name">Nome</label>
                                     <div class='input-group {% if form.name.errors %}has-error{% endif %}'>
                                         <div class='input-group-addon'>
                                             <i class='ace-icon fa fa-credit-card'></i>
@@ -60,6 +57,36 @@
                                         {{ form.description|placeholder:"Codigo ou descrição da venda" | textarea:"4" | addcss:"form-control" }}
                                     </div>
                                     <span class="error text-danger">{{ form.description.errors|join:"<br \>" }}</span>
+                                </div>
+                                <div>
+                                    <label for="id_username">Username</label>
+                                    <div class='input-group {% if user_form.username.errors %}has-error{% endif %}'>
+                                        <div class='input-group-addon'>
+                                            <i class='ace-icon fa fa-credit-card'></i>
+                                        </div>
+                                        {{ user_form.username|placeholder:"usuario" | addcss:"form-control" }}
+                                    </div>
+                                    <span class="error text-danger">{{ user_form.username.errors|join:"<br \>" }}</span>
+                                </div>
+                                <div>
+                                    <label for="id_password1">Senha</label>
+                                    <div class='input-group {% if user_form.password1.errors %}has-error{% endif %}'>
+                                        <div class='input-group-addon'>
+                                            <i class='ace-icon fa fa-credit-card'></i>
+                                        </div>
+                                        {{ user_form.password1|placeholder:"senha" | addcss:"form-control" }}
+                                    </div>
+                                    <span class="error text-danger">{{ user_form.password1.errors|join:"<br \>" }}</span>
+                                </div>
+                                <div>
+                                    <label for="id_password2">Repetir Senha</label>
+                                    <div class='input-group {% if user_form.password2.errors %}has-error{% endif %}'>
+                                        <div class='input-group-addon'>
+                                            <i class='ace-icon fa fa-credit-card'></i>
+                                        </div>
+                                        {{ user_form.password2|placeholder:"repetir senha" | addcss:"form-control" }}
+                                    </div>
+                                    <span class="error text-danger">{{ user_form.password2.errors|join:"<br \>" }}</span>
                                 </div>
                             </div>
 
