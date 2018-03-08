@@ -39,24 +39,24 @@
                             <div class="col-sm-6 col-sm-offset-2">
                                 <div>
                                     <label for="id_name">Nome</label>
-                                    <div class='input-group {% if form.name.errors %}has-error{% endif %}'>
+                                    <div class='input-group {% if business_form.name.errors %}has-error{% endif %}'>
                                         <div class='input-group-addon'>
                                             <i class='ace-icon fa fa-credit-card'></i>
                                         </div>
-                                        {{ form.name|placeholder:"Nome Empresa" | addcss:"form-control" }}
+                                        {{ business_form.name|placeholder:"Nome Empresa" | addcss:"form-control" }}
                                     </div>
-                                    <span class="error text-danger">{{ form.name.errors|join:"<br \>" }}</span>
+                                    <span class="error text-danger">{{ business_form.name.errors|join:"<br \>" }}</span>
                                 </div>
                                 <div class="space-6"></div>
                                 <div>
                                     <label for="id_description">Ramo de Atução</label>
-                                    <div class='input-group {% if form.description.errors %}has-error{% endif %}'>
+                                    <div class='input-group {% if business_form.description.errors %}has-error{% endif %}'>
                                         <div class='input-group-addon'>
                                             <i class='ace-icon fa fa-credit-card'></i>
                                         </div>
-                                        {{ form.description|placeholder:"Codigo ou descrição da venda" | textarea:"4" | addcss:"form-control" }}
+                                        {{ business_form.description|placeholder:"Codigo ou descrição da venda" | textarea:"4" | addcss:"form-control" }}
                                     </div>
-                                    <span class="error text-danger">{{ form.description.errors|join:"<br \>" }}</span>
+                                    <span class="error text-danger">{{ business_form.description.errors|join:"<br \>" }}</span>
                                 </div>
                                 <div>
                                     <label for="id_username">Username</label>

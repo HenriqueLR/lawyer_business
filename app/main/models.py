@@ -62,7 +62,7 @@ class BusinessLawyerModel(DefaultFieldsModel):
                                 max_digits=10, decimal_places=2)
     lawyer = models.ForeignKey(LawyerModel, verbose_name='Lawyer',
                         related_name='business_lawyer_lawyer', db_column='lawyer')
-    status = models.ForeignKey(StatusModel, verbose_name='Status', default=StatusModel.objects.get(name='criada').pk,
+    status = models.ForeignKey(StatusModel, verbose_name='Status',
                                 related_name='order_service_status', db_column='status')
     description = models.TextField(db_column='description', verbose_name=u'Descricao')
 

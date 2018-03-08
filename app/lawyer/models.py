@@ -2,6 +2,8 @@
 
 from django.db import models
 from lawyer.utils import validate_cpf, validate_phone
+from django.contrib.auth.models import User
+
 
 
 class LawyerModel(models.Model):
@@ -13,6 +15,7 @@ class LawyerModel(models.Model):
     updated_at = models.DateTimeField(verbose_name=u'Atualizado em', auto_now=True, db_column='updated_at')
     created_at = models.DateTimeField(verbose_name=u'Criado em', auto_now_add=True, db_column='created_at')
     description = models.TextField(db_column='description', blank=True, null=True, verbose_name=u'Descricao')
+    user = models.OneToOneField(User, verbose_name='Usuario', related_name='lawyer_user', db_column='user', unique=True)
 
     def __str__(self):
         return (u'%s - %s') % (self.cpf, self.name)

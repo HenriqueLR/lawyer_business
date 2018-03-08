@@ -10,33 +10,26 @@ from business.models import BusinessModel
 from business.form import BusinessForm
 from main.models import BusinessLawyerModel, StatusModel, OrderServiceModel
 from main.utils import convert_string_to_date
-from accounts.form import UserForm
+from accounts.form import UserCreateForm
 
 
 
-class BusinessAddView(CreateView):
-
-    model = BusinessModel
-    form_class = BusinessForm
+def add_business(request):
     template_name = 'business/add_business.html'
-    success_url = reverse_lazy('business:add_business')
+    user_form = UserCreateForm(request.POST or None)
+    business_form = BusinessForm(request.POST or None)
 
-    def get_context_data(self, **kwargs):
-        context = super(BusinessAddView, self).get_context_data(**kwargs)
-        data = {
-            'user_form':UserForm(self.request.POST or None)
-        }
-        context.update(data)
-        return context
+    if user_form.is_valid() and business_form.is_valid():
+        user = user_form.save()
+        business = business_form.save(user=user)
+        messages.success(request, 'Empresa criada com sucesso')
+        return HttpResponseRedirect(reverse_lazy('main:home'))
 
-    def form_valid(self, form):
-        context = self.get_context_data()
-        user_form = context['user_form']
-        if user_form.is_valid() and form.is_valid():
-            user = user_form.save()
-            form.save(user=user)
-        messages.success(self.request, 'Empresa criada com sucesso')
-        return super().form_valid(form)
+    context = {
+        'user_form':user_form,
+        'business_form':business_form
+    }
+    return render(request, template_name, context)
 
 
 
@@ -81,5 +74,4 @@ def update_status_os(request, *args, **kwargs):
 
 
 
-add_business = BusinessAddView.as_view()
 list_os_validate = OsValidateListView.as_view()

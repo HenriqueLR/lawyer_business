@@ -12,20 +12,26 @@ from main.models import OrderServiceModel, BusinessLawyerModel, StatusModel
 from lawyer.form import LawyerForm
 from main.form import BusinessLawyerForm
 from main.utils import convert_string_to_date
+from accounts.form import UserCreateForm
 
 
 
-class LawyerAddView(CreateView):
-
-    model = LawyerModel
-    form_class = LawyerForm
+def add_lawyer(request):
     template_name = 'lawyer/add_lawyer.html'
-    success_url = reverse_lazy('lawyer:add_lawyer')
+    user_form = UserCreateForm(request.POST or None)
+    lawyer_form = LawyerForm(request.POST or None)
 
-    def form_valid(self, form):
-        form.save()
-        messages.success(self.request, 'Advogado criado com sucesso')
-        return super().form_valid(form)
+    if user_form.is_valid() and lawyer_form.is_valid():
+        user = user_form.save()
+        lawyer = lawyer_form.save(user=user)
+        messages.success(request, 'Empresa criada com sucesso')
+        return HttpResponseRedirect(reverse_lazy('main:home'))
+
+    context = {
+        'user_form':user_form,
+        'lawyer_form':lawyer_form
+    }
+    return render(request, template_name, context)
 
 
 
@@ -108,7 +114,6 @@ class SignOsAddView(CreateView):
 
 
 
-add_lawyer = LawyerAddView.as_view()
 list_os = OsListView.as_view()
 sign_os = SignOsAddView.as_view()
 list_os_sign = OsListSignView.as_view()
