@@ -24,4 +24,5 @@ urlpatterns = [
                                             content_type="text/html"), name="test_setup"),
     url(r'^', include('main.urls', namespace='main')),
     url(r'^advogados/', include('lawyer.urls', namespace='lawyer')),
+    url(r'^empresas/', include('business.urls', namespace='business')),
 ]

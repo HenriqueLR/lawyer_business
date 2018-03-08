@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load formtags %}
+
+{% block search_form_navbar %}{% endblock %}
+{% block navbar %}{% endblock %}
+{% block sidebar %}{% endblock %}
+{% block breadcrumb %}{% endblock %}
+{% block bd %}{% endblock %}
+
+{% block content %}
+
+
+    <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <div class="widget-box transparent">
+                    <form action="." method="POST">
+                        {% csrf_token %}
+                    <div class="widget-header widget-header-flat border-none">
+                        <h4 class="widget-title lighter">
+                            <i class="ace-icon fa fa-star orange"></i>
+                            Nova Empresa
+                        </h4>
+
+                        <div class="widget-toolbar">
+                            <a href="{% url 'main:home' %}">
+                                <i class="fa fa-times"></i>
+                                Cancelar
+                            </a>
+                        </div>
+
+                        <div class="widget-toolbar">
+                            <button class="btn btn-link" type="submit">
+                                <i class="fa fa-floppy-o"></i>
+                                Salvar
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="col-sm-6 col-sm-offset-2">
+                                <div>
+                                    <label for="id_namè">Nome</label>
+                                    <div class='input-group {% if form.name.errors %}has-error{% endif %}'>
+                                        <div class='input-group-addon'>
+                                            <i class='ace-icon fa fa-credit-card'></i>
+                                        </div>
+                                        {{ form.name|placeholder:"Nome Empresa" | addcss:"form-control" }}
+                                    </div>
+                                    <span class="error text-danger">{{ form.name.errors|join:"<br \>" }}</span>
+                                </div>
+                                <div class="space-6"></div>
+                                <div>
+                                    <label for="id_description">Ramo de Atução</label>
+                                    <div class='input-group {% if form.description.errors %}has-error{% endif %}'>
+                                        <div class='input-group-addon'>
+                                            <i class='ace-icon fa fa-credit-card'></i>
+                                        </div>
+                                        {{ form.description|placeholder:"Codigo ou descrição da venda" | textarea:"4" | addcss:"form-control" }}
+                                    </div>
+                                    <span class="error text-danger">{{ form.description.errors|join:"<br \>" }}</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    </form>
+                </div>
+            </div>
+
+    </div><!-- /.row -->
+
+{% endblock %}

@@ -20,7 +20,7 @@ class LawyerAddView(CreateView):
     def form_valid(self, form):
         form.save()
         messages.success(self.request, 'Advogado criado com sucesso')
-        return HttpResponseRedirect(self.success_url)
+        return super().form_valid(form)
 
 
 
