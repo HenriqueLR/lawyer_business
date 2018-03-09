@@ -23,4 +23,4 @@ sudo echo "deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main" > /et
 && ./app/manage.py collectstatic --noinput \
 && ./app/manage.py makemigrations --settings=conf.settings_production \
 && ./app/manage.py migrate --settings=conf.settings_production \
-&& ./app/conf config_init.py --conf production
+&& python app/conf/config_init.py --conf production
