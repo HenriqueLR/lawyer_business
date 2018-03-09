@@ -9,6 +9,7 @@ class OrderServiceForm(forms.ModelForm):
 
     class Meta:
         model = OrderServiceModel
+        exclude = ['business']
         fields = '__all__'
 
 
@@ -17,5 +18,5 @@ class BusinessLawyerForm(forms.ModelForm):
 
     class Meta:
         model = BusinessLawyerModel
-        exclude = ['status']
+        exclude = ['status', 'lawyer']
         fields = '__all__'

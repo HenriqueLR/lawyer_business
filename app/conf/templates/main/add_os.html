@@ -38,16 +38,7 @@
                         <div class="widget-main">
                             <div class="col-sm-6 col-sm-offset-2">
                                 <div>
-                                    <label for="id_business">Empresa</label>
-                                    <div class='input-group {% if form.business.errors %}has-error{% endif %}'>
-                                        <div class='input-group-addon'>
-                                            <i class='ace-icon fa fa-credit-card'></i>
-                                        </div>
-                                        {{ form.business|placeholder:"Empresa" | addcss:"form-control" }}
-                                    </div>
-                                    <span class="error text-danger">{{ form.business.errors|join:"<br \>" }}</span>
-                                </div>
-                                <div class="space-6"></div>
+
                                 <div>
                                     <label for="id_title">Titulo</label>
                                     <div class='input-group {% if form.title.errors %}has-error{% endif %}'>

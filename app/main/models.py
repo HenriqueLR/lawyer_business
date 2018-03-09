@@ -31,12 +31,22 @@ class StatusModel(DefaultFieldsModel):
 
 
 
+class OrderServiceManager(models.Manager):
+
+    def filter_user(self, user):
+        qs = super(OrderServiceManager, self).get_queryset()
+        return qs.filter(business__user=user)
+
+
+
 class OrderServiceModel(DefaultFieldsModel):
     id_order_service = models.AutoField(primary_key=True, verbose_name=u'Cod Order Service', db_column='id_order_service')
     business = models.ForeignKey(BusinessModel, verbose_name='Empresa',
                                 related_name='order_service_business', db_column='business')
     title = models.CharField(verbose_name='Titulo', db_column='title', max_length=50)
     description = models.TextField(db_column='description', verbose_name=u'Descricao')
+
+    objects = OrderServiceManager()
 
     def __str__(self):
         return self.business.name
@@ -53,6 +63,17 @@ class OrderServiceModel(DefaultFieldsModel):
 
 
 
+class BusinessLawyerManager(models.Manager):
+
+    def filter_user(self, user):
+        qs = super(BusinessLawyerManager, self).get_queryset()
+        return qs.filter(order_service__business=user)
+
+    def filter_lawyer(self, user):
+        qs = super(BusinessLawyerManager, self).get_queryset()
+        return qs.filter(lawyer=user)
+
+
 class BusinessLawyerModel(DefaultFieldsModel):
     id_business_lawyer = models.AutoField(primary_key=True, verbose_name='Cod Business Lawyer',
                                             db_column='id_business_lawyer')
@@ -65,6 +86,8 @@ class BusinessLawyerModel(DefaultFieldsModel):
     status = models.ForeignKey(StatusModel, verbose_name='Status',
                                 related_name='order_service_status', db_column='status')
     description = models.TextField(db_column='description', verbose_name=u'Descricao')
+
+    objects = BusinessLawyerManager()
 
     def __str__(self):
         return (u'%s - %s') % (self.order_service, self.price)
