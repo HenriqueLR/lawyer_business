@@ -7,6 +7,7 @@
 *.ini
 __pycache__
 static_files/
+migrations/
 .DS_Store
 .idea/
 *.so
