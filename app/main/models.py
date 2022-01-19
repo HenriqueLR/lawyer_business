@@ -3,6 +3,7 @@
 from django.db import models
 from business.models import BusinessModel
 from lawyer.models import LawyerModel
+from django.urls import reverse
 
 
 
@@ -42,7 +43,8 @@ class OrderServiceManager(models.Manager):
 class OrderServiceModel(DefaultFieldsModel):
     id_order_service = models.AutoField(primary_key=True, verbose_name=u'Cod Order Service', db_column='id_order_service')
     business = models.ForeignKey(BusinessModel, verbose_name='Empresa',
-                                related_name='order_service_business', db_column='business')
+                                related_name='order_service_business', db_column='business',
+                                on_delete=models.CASCADE)
     title = models.CharField(verbose_name='Titulo', db_column='title', max_length=50)
     description = models.TextField(db_column='description', verbose_name=u'Descricao')
 
@@ -51,9 +53,8 @@ class OrderServiceModel(DefaultFieldsModel):
     def __str__(self):
         return self.business.name
 
-    @models.permalink
     def get_delete_os(self):
-        return('main:delete_os', [int(self.pk)], {})
+        return reverse('main:delete_os', kwargs={'pk' : self.pk})
 
     class Meta:
         verbose_name = 'Ordem de Serviço'
@@ -78,13 +79,16 @@ class BusinessLawyerModel(DefaultFieldsModel):
     id_business_lawyer = models.AutoField(primary_key=True, verbose_name='Cod Business Lawyer',
                                             db_column='id_business_lawyer')
     order_service = models.ForeignKey(OrderServiceModel, verbose_name='Order Service',
-                        related_name='business_lawyer_order_service', db_column='order_service')
+                        related_name='business_lawyer_order_service', db_column='order_service',
+                        on_delete=models.CASCADE)
     price = models.DecimalField(verbose_name='Preço', db_column='price', null=False, blank=False,
                                 max_digits=10, decimal_places=2)
     lawyer = models.ForeignKey(LawyerModel, verbose_name='Lawyer',
-                        related_name='business_lawyer_lawyer', db_column='lawyer')
+                        related_name='business_lawyer_lawyer', db_column='lawyer',
+                        on_delete=models.CASCADE)
     status = models.ForeignKey(StatusModel, verbose_name='Status',
-                                related_name='order_service_status', db_column='status')
+                                related_name='order_service_status', db_column='status',
+                                on_delete=models.CASCADE)
     description = models.TextField(db_column='description', verbose_name=u'Descricao')
 
     objects = BusinessLawyerManager()

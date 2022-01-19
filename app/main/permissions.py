@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.decorators.cache import never_cache
 from django.utils.decorators import method_decorator
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from business.models import BusinessModel
 from main.utils import convert_string_to_date
 from django.contrib import messages
@@ -32,7 +32,7 @@ class PermissionsMainMixin(PermissionsGeralMixin):
 
     def form_valid(self, form):
         form.instance.business = self.business.get()
-        messages.success(self.request, 'Ordem de serviço criada com sucesso')
+        messages.success(self.request, self.message_success)
         return super(PermissionsMainMixin, self).form_valid(form)
 
     def get_queryset(self):
@@ -47,8 +47,11 @@ class PermissionsMainMixin(PermissionsGeralMixin):
                             created_at__lte=dt_end.strftime('%Y-%m-%d %H:%M:%S'))
         return qs
 
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
+
+
+class PermissionsMainDeleteOsMixin(PermissionsGeralMixin):
+
+    def form_valid(self, form):
         self.object.delete()
-        messages.success(self.request, 'Lançamento de débito apagado com sucesso')
-        return HttpResponseRedirect(self.success_url)
+        messages.success(self.request, self.message_success)
+        return HttpResponseRedirect(self.get_success_url())

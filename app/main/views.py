@@ -4,13 +4,13 @@ from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.views.generic.edit import DeleteView
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from main.models import OrderServiceModel, StatusModel
 from main.form import OrderServiceForm
-from main.permissions import PermissionsMainMixin
+from main.permissions import PermissionsMainMixin, PermissionsMainDeleteOsMixin
 from main.decorators import user_check
 
 
@@ -30,6 +30,7 @@ class OsAddView(PermissionsMainMixin, CreateView):
     form_class = OrderServiceForm
     template_name = 'main/add_os.html'
     success_url = reverse_lazy('main:list_os')
+    message_success = 'Ordem de serviço criada'
 
 
 
@@ -41,11 +42,12 @@ class OsListView(PermissionsMainMixin, ListView):
 
 
 
-class OsDeleteView(PermissionsMainMixin, DeleteView):
+class OsDeleteView(PermissionsMainDeleteOsMixin, DeleteView):
 
     model = OrderServiceModel
     template_name = 'main/os_confirm_delete.html'
     success_url = reverse_lazy('main:list_os')
+    message_success = 'Ordem de serviço apagada'
 
 
 
