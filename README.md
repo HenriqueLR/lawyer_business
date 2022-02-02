@@ -1,28 +1,20 @@
 Aplicação para Advogados e empresas.
 
-### Requisitos
+### Requirements
 
     docker.io
-    python2.7 or python 3.6
+    docker-compose
 
-### Instalação
+### install
 
-    make install
-    make runserver_prodution
+    docker-compose up -d
 
-### Desenvolvimento
 
-Para rodar local na porta 8001
+### Start
 
-    make runserver_local
+localhost:8008
 
-### Observações
-
-Após a instalação, antes de colocar para rodar em ambiente de produção,
-verifique se a porta 80 e 4444 esta sendo usada, são as portas linkadas
-ao docker, precisam estar livres.
-
-### Testes
+### Tests
 
 Para testar a demo acesse: [ link fora do ar ]
 
