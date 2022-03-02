@@ -42,4 +42,3 @@ target/
 *.ropeproject
 *.sublime-*
 queue_spooler/.*
-.env
