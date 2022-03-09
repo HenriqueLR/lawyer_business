@@ -1,0 +1,9 @@
+FROM henriquelr89/ubuntu-nginx:1.18
+MAINTAINER henrique.lr89@gmail.com
+
+RUN mkdir -p /deploy/apps/lawyer_business/env/nginx/
+ADD . /deploy/apps/lawyer_business/env/nginx/
+WORKDIR /deploy/apps/lawyer_business/env/nginx/
+RUN cp ./default /etc/nginx/sites-enabled/default
+
+ENTRYPOINT ["sh", "/deploy/apps/lawyer_business/env/nginx/entrypoint.sh"]
