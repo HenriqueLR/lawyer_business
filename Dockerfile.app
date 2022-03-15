@@ -12,4 +12,4 @@ RUN chown -R lawyer_business:lawyer_business /deploy/apps/lawyer_business/
 
 USER lawyer_business
 
-ENTRYPOINT ["sh", "/deploy/apps/lawyer_business/entrypoint.sh"]
+ENTRYPOINT ["sh", "/deploy/apps/lawyer_business/env/app/entrypoint.sh"]
