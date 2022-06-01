@@ -24,6 +24,6 @@ ao docker, precisam estar livres.
 
 ### Testes
 
-Para testar a demo acesse:
+Para testar a demo acesse: [ link fora do ar ]
 
     https://business-lawyer.herokuapp.com
