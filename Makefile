@@ -3,17 +3,19 @@ SHELL := /bin/bash
 
 
 install: permissions
+	./setup.sh $(image) $(tag) ;\
+
+dependences:
 	pip install -r requirements.txt ;\
-	./setup.sh ;\
 
 runserver_prodution:
-	./env/docker/runserver.sh
+	./env/docker/runserver.sh $(image) $(tag)
 
 runserver_local:
 	./app/manage.py runserver 0.0.0.0:8001 --settings=conf.settings
 
 connect_container:
-	./env/docker/connect-container.sh
+	./env/docker/connect-container.sh $(image)
 
 collectstatic:
 	./app/manage.py collectstatic
@@ -37,4 +39,4 @@ clean_db_local: remove_migrations clean
 reset_db_local: clean clean_db_local migrate
 
 permissions:
-	find . -name "*.sh" | xargs chmod 0755
+	find . -name "*.sh" | xargs chmod 0755 ;\

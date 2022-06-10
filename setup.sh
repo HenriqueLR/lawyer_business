@@ -1,3 +1,14 @@
 #!/bin/bash -xe
 
-docker build -t "lawyer_business:v.0.1" .
+argc=$#
+argv=($@)
+
+
+setup(){
+	sudo docker build -t "$image:$tag" .;
+}
+
+image=$1
+tag=$2
+
+setup

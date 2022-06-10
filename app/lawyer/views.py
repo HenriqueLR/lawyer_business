@@ -3,7 +3,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.db.models import Q

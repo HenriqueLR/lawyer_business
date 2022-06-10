@@ -2,7 +2,7 @@
 
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.edit import CreateView
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect

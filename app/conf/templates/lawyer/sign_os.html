@@ -10,7 +10,7 @@
     <div class="row">
             <div class="col-xs-12 col-sm-12">
                 <div class="widget-box transparent">
-                    <form action="{{ os.pk }}" method="POST">
+                    <form action="." method="POST">
                         {% csrf_token %}
                     <div class="widget-header widget-header-flat border-none">
                         <h4 class="widget-title lighter">
@@ -36,14 +36,7 @@
 
                     <div class="widget-body">
                         <div class="widget-main">
-                            {% if form.errors %}
-                                <div class="alert alert-error">
-                                  {% if form.non_field_errors %}
-                                    <h4>Verifique o erro</h4>
-                                    {{ form.non_field_errors }}
-                                  {% endif %}
-                                </div>
-                              {% endif %}
+                            {% include 'messages.html' %}
                             <div class="col-sm-6 col-sm-offset-2">
                                 <div>
                                     <label for="id_order_service">Os</label>
