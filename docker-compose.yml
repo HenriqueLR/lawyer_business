@@ -36,8 +36,8 @@ services:
     image: nginx:1.0
     container_name: nginx
     build: 
-      context: env/nginx
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: Dockerfile.ng
     volumes:
       - static_volume:/deploy/apps/lawyer_business/app/conf/static_files
       - ./env/nginx:/deploy/apps/lawyer_business/env/nginx
