@@ -1,0 +1,23 @@
+FROM henriquelr89/ubuntu-postgresql:12.00
+MAINTAINER henrique.lr89@gmail.com
+
+ENV PG_VERSION 12
+ENV PG_BASE /var/lib/postgresql
+ENV PG_PASSWORD_FILE ${PG_BASE}/pwfile
+ENV PG_DATA ${PG_BASE}/${PG_VERSION}/main
+ENV PG_CONFIG_DIR /etc/postgresql/${PG_VERSION}/main
+ENV PG_CONFIG_FILE ${PG_CONFIG_DIR}/postgresql.conf
+ENV PG_BINDIR /usr/lib/postgresql/${PG_VERSION}/bin
+
+RUN apt-get install -y pwgen && apt-get install -y vim
+
+RUN mkdir -p /deploy/apps/lawyer_business/env/postgresql/
+COPY ./env/postgresql/entrypointdb.sh /deploy/apps/lawyer_business/env/postgresql/
+COPY ./env/postgresql/configure-postgresql.sh /deploy/apps/lawyer_business/env/postgresql/
+WORKDIR /deploy/apps/lawyer_business/env/postgresql/
+
+RUN ./configure-postgresql.sh
+
+USER postgres
+
+ENTRYPOINT ["sh", "/deploy/apps/lawyer_business/env/postgresql/entrypointdb.sh"]

@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  app:
+    image: lawyer_business:1.0
+    container_name: lawyer_business
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    working_dir: /deploy/apps/lawyer_business/
+    command: env/docker/services.sh supervisord_run
+    volumes:
+      - static_volume:/deploy/apps/lawyer_business/app/conf/static_files
+      - .:/deploy/apps/lawyer_business
+      - ./env/supervisord:/etc/supervisord
+    ports:
+      - 7007
+    env_file:
+      - ./.env
+    depends_on:
+      - db      
+  db:
+    image: postgresql:12.0
+    container_name: postgresql
+    build:
+      context: .
+      dockerfile: Dockerfile.bd
+    volumes:
+      - pg-data:/var/lib/postgresql/12/main
+      - ./env/postgresql:/deploy/apps/lawyer_business/env/postgresql      
+    ports:
+      - 5544:5432
+    env_file:
+      - ./.envdb
+  wp:
+    image: nginx:1.0
+    container_name: nginx
+    build: 
+      context: .
+      dockerfile: Dockerfile.ng
+    volumes:
+      - static_volume:/deploy/apps/lawyer_business/app/conf/static_files
+      - ./env/nginx:/deploy/apps/lawyer_business/env/nginx
+    ports:
+      - 8008:80
+    depends_on:
+      - app
+volumes:
+  static_volume:
+  pg-data:

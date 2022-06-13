@@ -1,6 +1,6 @@
 upstream app {
     # For a TCP configuration:
-    server 127.0.0.1:7007 fail_timeout=0;
+    server app:7007 fail_timeout=0;
 }
 
 server {
@@ -10,23 +10,26 @@ server {
     keepalive_timeout 5;
     server_name localhost;
 
+    location = /favicon.ico { access_log off; log_not_found off; }
+
     location /static/ {
             alias /deploy/apps/lawyer_business/app/conf/static_files/;
             expires 1d;
     }
 
-    # path for static files
-    root /deploy/apps/lawyer_business/app/conf/;
-
     location / {
+        rewrite ^/rewriteme/(.*)$ /$1 last;
         # checks for static file, if not found proxy to app
         try_files $uri @proxy_to_app;
     }
 
     location @proxy_to_app {
+        proxy_pass http://app;
         proxy_set_header        X-Real-IP       $remote_addr;
-        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass   http://app;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+        proxy_set_header Host $host;
+        proxy_redirect off;        
     }
 
 }
